@@ -1,4 +1,4 @@
-- name: kraken-ssl.service
+- name: kraken-{{etcd.name}}-ssl.service 
   runtime: true
   command: start
   content: |
@@ -18,8 +18,8 @@
      --mount volume=input,target=/input \
      --mount volume=output,target=/output \
      --set-env=HOST_IP=${DEFAULT_IPV4} \
-     --set-env=SERVICE_DNS_NAME={{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
-     --set-env=HOST_DNS_NAME=*.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
-     quay.io/samsung_cnct/drunkensmee:v0.6 \
-     --exec /assets/generate_etcd.sh
+     --set-env=SERVICE_DNS_NAME={{ etcd.name }}.{{ cluster_node_tuple.0.name }}.internal \
+     --set-env=HOST_DNS_NAME=*.{{ etcd.name }}.{{ cluster_node_tuple.0.name }}.internal \
+     quay.io/leahnp/drunkensmee-test:etcd-events \
+     --exec /assets/generate_etcd.sh {{etcd.name}}
     ExecStopPost=/usr/bin/rkt gc --mark-only

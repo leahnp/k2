@@ -11,43 +11,43 @@
     uuidgen
   register: uuidgen_result
   when:
-    - cluster_node_tuple.1.etcdConfig.uuidToken is defined
-    - cluster_node_tuple.1.etcdConfig.uuidToken
+    - etcd.uuidToken is defined
+    - etcd.uuidToken
 
 - debug:
     var: uuidgen_result
     verbosity: 0
   when:
-    - cluster_node_tuple.1.etcdConfig.uuidToken is defined
-    - cluster_node_tuple.1.etcdConfig.uuidToken
+    - etcd.uuidToken is defined
+    - etcd.uuidToken
 
 - name: Fail if uuidgen failed
   fail:
     msg: "uuidgen failed with {{ uuidgen_result.stderr }}"
   when:
-    - cluster_node_tuple.1.etcdConfig.uuidToken is defined
-    - cluster_node_tuple.1.etcdConfig.uuidToken
+    - etcd.uuidToken is defined
+    - etcd.uuidToken
     - uuidgen_result | failed
 
 - set_fact:
     clusterUuidToken: "{{ uuidgen_result.stdout | lower }}"
   when:
-    - cluster_node_tuple.1.etcdConfig.uuidToken is defined
-    - cluster_node_tuple.1.etcdConfig.uuidToken
+    - etcd.uuidToken is defined
+    - etcd.uuidToken
 
 - debug:
     msg: >
       The UUID for (cluster, nodePool) ({{ cluster_node_tuple.0.name }},
-      {{ cluster_node_tuple.1.etcdConfig.name }}) is {{ clusterUuidToken }}
+      {{ etcd.name }}) is {{ clusterUuidToken }}
     verbosity: 0
   when:
-    - cluster_node_tuple.1.etcdConfig.uuidToken is defined
-    - cluster_node_tuple.1.etcdConfig.uuidToken
+    - etcd.uuidToken is defined
+    - etcd.uuidToken
 
 - name: Generate etcd .units.etcd.part files
   template: src=etcd.units.etcd.part.jinja2
-            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.etcd.part"
+            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.kraken-etcd-{{ etcd.name }}.part"
 
 - name: Generate kraken-ssl .units.etcd.part files
   template: src=etcd.units.kraken-etcd-ssl.part.jinja2
-            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.kraken-etcd-ssl.part"
+            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.kraken-etcd-{{ etcd.name }}-ssl.part"

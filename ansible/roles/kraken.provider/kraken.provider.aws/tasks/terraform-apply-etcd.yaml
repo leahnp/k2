@@ -1,5 +1,5 @@
 ---
-- name: Get terraform modules
+- name: Get terraform modules (terraform-apply)
   command: >
     terraform get -no-color -update=true
   args:

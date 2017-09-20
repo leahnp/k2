@@ -8,10 +8,13 @@ metadata:
   namespace: kube-networking
 data:
   # Configure this with the location of your etcd cluster.
-  etcd_endpoints: "{% if etcd.etcdConfig.ssl == true %}https{% else %}http{% endif %}://{{etcd.etcdConfig.name}}.{{cluster.name}}.internal:{{etcd.etcdConfig.clientPorts[0]}}"
+  etcd_endpoints: "{%  for etcd in etcd.etcdConfigs %}{% if etcd.ssl == true %}https{% else %}http{% endif %}://{{etcd.name}}.{{cluster.name}}.internal:{{etcd.clientPorts[0]}}"{% endfor %}
   etcd_ca_cert_file: "/etc/etcd/ssl/client-ca.pem"
   etcd_cert_file: "/etc/etcd/ssl/client.pem"
   etcd_key_file: "/etc/etcd/ssl/client-key.pem"
+  etcdEvents_ca_cert_file: "/etc/etcdEvents/ssl/client-ca.pem"
+  etcdEvents_cert_file: "/etc/etcdEvents/ssl/client.pem"
+  etcdEvents_key_file: "/etc/etcdEvents/ssl/client-key.pem"
 
   # The interface used by canal for host <-> host communication.
   # If left blank, then the interface is chosing using the node's
@@ -34,6 +37,9 @@ data:
           "etcd_ca_cert_file": "/etc/etcd/ssl/client-ca.pem",
           "etcd_cert_file": "/etc/etcd/ssl/client.pem",
           "etcd_key_file": "/etc/etcd/ssl/client-key.pem",
+          "etcdEvents_ca_cert_file": "/etc/etcdEvents/ssl/client-ca.pem",
+          "etcdEvents_cert_file": "/etc/etcdEvents/ssl/client.pem",
+          "etcdEvents_key_file': "/etc/etcdEvents/ssl/client-key.pem",
           "log_level": "info",
           "policy": {
               "type": "k8s",
