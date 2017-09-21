@@ -1,11 +1,11 @@
-- name: kraken-{{etcd.name}}.service
+- name: kraken-etcd-{{ etcd.name }}.service
   command: start
   content: |
     [Unit]
-    Description={{etcd.name}}
+    Description=Kraken etcd instance named {{ etcd.name }}
 {% if etcd.ssl == true %}
-    After=kraken-{{etcd.name}}-ssl.service
-    Requires=kraken-{{etcd.name}}-ssl.service
+    After=kraken-etcd-ssl-{{ etcd.name }}.service
+    Requires=kraken-etcd-ssl-{{ etcd.name }}.service
 {% endif %}
 {% for mount in cluster_node_tuple.1.nodeConfig.mounts %}
     After={{mount.path | replace('/', '-') | replace('-', '', 1)}}.mount

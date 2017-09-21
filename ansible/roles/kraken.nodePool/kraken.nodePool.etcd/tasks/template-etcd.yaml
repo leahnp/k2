@@ -50,4 +50,4 @@
 
 - name: Generate kraken-ssl .units.etcd.part files
   template: src=etcd.units.kraken-etcd-ssl.part.jinja2
-            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.kraken-etcd-{{ etcd.name }}-ssl.part"
+            dest="{{ config_base | expanduser }}/{{ cluster_node_tuple.0.name }}/{{ cluster_node_tuple.1.name }}.units.kraken-etcd-ssl-{{ etcd.name }}.part"
