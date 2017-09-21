@@ -2,6 +2,10 @@
 - set_fact:
     ssh_config: "{{ config_base | expanduser }}/{{ cluster.name }}/ssh_config"
     etcd_loopback_endpoints: "{% for etcd in nodePool.etcdConfigs %}{% for port in etcd.clientPorts %}{% if etcd.ssl == true %}https{% else %}http{% endif %}://127.0.0.1:{{ port }}{{ ',' if not loop.last else '' }}{% endfor %}{% endfor %}"
+    # !? This should be changed to /etc/etcd/{{ etcd.name }}/ssl/ or /etc/kraken/etcd/{{ etcd.name }}/ssl/ with a cooresponding change to drunkensmee.
+    etcd_cafile: /etc/{{ etcd.name }}/ssl/client-ca.pem
+    etcd_certfile: /etc/{{ etcd.name }}/ssl/client.pem
+    etcd_keyfile: /etc/{{ etcd.name }}/ssl/client-key.pem
 
 # We purposely use ssh to query etcd over the loopback interface.
 # This allows us to support stricter firewall rules.
