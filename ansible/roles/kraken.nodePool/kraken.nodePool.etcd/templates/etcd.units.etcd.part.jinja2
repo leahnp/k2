@@ -46,7 +46,7 @@
      --key-file=/etc/{{etcd.name}}/ssl/server-key.pem \
      --client-cert-auth \
 {% endif %}
-     --discovery-srv {{ etcd.name }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}internal \
+     --discovery-srv {{ etcd.name }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
      --initial-advertise-peer-urls {% if etcd.ssl == true %}https{% else %}http{% endif %}://${DEFAULT_IPV4}:{{etcd.peerPorts[0]}} \
 {% if etcd.uuidToken is defined and etcd.uuidToken %}
      --initial-cluster-token {{ clusterUuidToken }} \

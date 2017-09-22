@@ -18,8 +18,8 @@
      --mount volume=input,target=/input \
      --mount volume=output,target=/output \
      --set-env=HOST_IP=${DEFAULT_IPV4} \
-     --set-env=SERVICE_DNS_NAME={{ etcd.name | lower }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
-     --set-env=HOST_DNS_NAME=*.{{ etcd.name | lower }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
+     --set-env=SERVICE_DNS_NAME={{ etcd.name }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
+     --set-env=HOST_DNS_NAME=*.{{ etcd.name }}.{{ cluster_node_tuple.1.name }}.{{ cluster_node_tuple.0.name }}.internal \
      quay.io/leahnp/drunkensmee-test:etcd-events \
-     --exec /assets/generate_etcd.sh {{ etcd.name }}
+     --exec /assets/generate_etcd.sh -- {{ etcd.name }}
     ExecStopPost=/usr/bin/rkt gc --mark-only
