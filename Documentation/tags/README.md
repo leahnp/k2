@@ -17,7 +17,7 @@ $ docker run $K2OPTS -e KRAKEN_TAGS="dryrun" quay.io/samsung_cnct/k2:latest ./bi
 Then you can verify those tags through stdout when run some commands such as 'up.sh'
 ```bash
 ...
-WARNING: --output not specified. Using /Users/blackdog/.kraken as location
+WARNING: --output not specified. Using /Users/user/.kraken as location
 WARNING: Using 'dryrun' as tags
 ...
 ```
@@ -35,14 +35,14 @@ clusters
 $ .${YOURK2PATH}/hack/dockerdev -c ~/.kraken/${CLUSTER}.yaml
 
 Mappings:
-/Users/blackdog/.aws/credentials:/Users/blackdog/.aws/credentials
-/Users/blackdog/.aws:/Users/blackdog/.aws
-/Users/blackdog/.kraken/cappuccino.yaml:/Users/blackdog/.kraken/cappuccino.yaml
-/Users/blackdog/.kraken:/Users/blackdog/.kraken
-/Users/blackdog/.ssh/id_rsa.pub:/Users/blackdog/.ssh/id_rsa.pub
-/Users/blackdog/.ssh:/Users/blackdog/.ssh
-/Users/blackdog/dev/k2/lib/bashrc:/Users/blackdog/.bashrc
-/Users/blackdog/dev/k2:/kraken
+/Users/user/.aws/credentials:/Users/user/.aws/credentials
+/Users/user/.aws:/Users/user/.aws
+/Users/user/.kraken/cappuccino.yaml:/Users/user/.kraken/cappuccino.yaml
+/Users/user/.kraken:/Users/user/.kraken
+/Users/user/.ssh/id_rsa.pub:/Users/user/.ssh/id_rsa.pub
+/Users/user/.ssh:/Users/user/.ssh
+/Users/user/dev/k2/lib/bashrc:/Users/user/.bashrc
+/Users/user/dev/k2:/kraken
 
 $ export KRAKEN_TAGS="dryrun"
 $ echo $KRAKEN_TAGS
@@ -57,7 +57,7 @@ $ ./bin/up.sh --config ~/.kraken/${CLUSTER}.yaml
 Then you can verify those tags through stdout when run some commands such as 'up.sh'
 ```bash
 ...
-WARNING: --output not specified. Using /Users/blackdog/.kraken as location
+WARNING: --output not specified. Using /Users/user/.kraken as location
 WARNING: Using 'dryrun' as tags
 ...
 ```
